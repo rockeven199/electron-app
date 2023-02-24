@@ -1,20 +1,33 @@
 {
-  "name": "electron",
+  "name": "disktop-clock",
   "version": "1.0.0",
-  "description": "",
+  "description": "桌面时钟",
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "electron .",
-    "ndev": "nodemon --exec electron ."
+    "ndev": "nodemon --exec electron .",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
-  "author": "",
+  "author": "DEV",
   "license": "ISC",
   "dependencies": {
-    "electron": "^23.1.0",
+    "electron-squirrel-startup": "^1.0.0",
     "nodemon": "^2.0.20"
   },
   "devDependencies": {
-    "@electron-forge/cli": "^6.0.5"
+    "@electron-forge/cli": "^6.0.5",
+    "@electron-forge/maker-deb": "^6.0.5",
+    "@electron-forge/maker-rpm": "^6.0.5",
+    "@electron-forge/maker-squirrel": "^6.0.5",
+    "@electron-forge/maker-zip": "^6.0.5",
+    "electron": "23.1.1"
+  },
+  "build":{
+    "win":{
+      "icon":"G:\\github-progect\\electron-app\\logo.ico"
+    }
   }
 }

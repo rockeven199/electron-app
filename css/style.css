@@ -33,7 +33,7 @@ body {
   justify-content: center;
   width: 100vw;
   height: 30vh;
-  color: rgb(134, 255, 168);
+  color: rgb(112, 216, 142);
 }
 
 .show-year {
@@ -65,9 +65,9 @@ body {
 .seconds {
   display: flex;
   align-items: center;
-  justify-content: center;
-  max-width: 25vw;
-  min-width: 25vw;
+  justify-content:center;
+  width: 5rem;
+  padding: 0 !important;
 }
 
 .tips {
@@ -79,11 +79,6 @@ body {
   color: white;
   font-size: .75rem;
   letter-spacing: .125rem;
-}
-
-.point {
-  text-align: center;
-  color: rgb(255, 255, 255);
 }
 
 .month-and-day {
@@ -107,7 +102,15 @@ body {
     opacity: 0;
   }
 
+  20%{
+    opacity: 1;
+  }
+
   50%{
+    opacity: 0;
+  }
+
+  75%{
     opacity: 1;
   }
 
@@ -117,5 +120,5 @@ body {
 }
 
 .blink{
-  animation: blink 1.5s infinite;
+  animation: blink 2s infinite;
 }
