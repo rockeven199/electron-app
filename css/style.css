@@ -1,10 +1,11 @@
 @font-face {
   font-family: "clockFont";
-  src: url('../font/DS-Digital.ttf');
+  src: url("../font/DS-Digital.ttf");
 }
 
 * {
   margin: 0;
+  padding: 0;
   font-family: "clockFont";
 }
 
@@ -15,7 +16,6 @@ html {
 body {
   width: 100vw;
   height: 100vh;
-  background-color: transparent;
 }
 
 .show-clock {
@@ -29,53 +29,93 @@ body {
 
 .show-year-container {
   display: flex;
-  text-align: center;
   align-items: center;
-  justify-content: space-between;
-  width: 50vw;
+  justify-content: center;
+  width: 100vw;
   height: 30vh;
-  color: rgb(255, 255, 255);
+  color: rgb(134, 255, 168);
+}
+
+.show-year {
+  text-align: center;
 }
 
 .year {
+  text-align: center;
   width: 50vw;
   font-size: 3.125rem;
 }
 
-.mouth-and-day {
+.show-year {
   width: 50vw;
-  font-size: 1.5625rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
 }
 
 .show-hours-container {
   font-size: 5rem;
-  height: 40vh;
+  height: 50vh;
   width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
-  color: white;
+  color: rgb(255, 172, 78);
 }
 
 .hours,
 .minute,
 .seconds {
-  padding: 0 0.625rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30vw;
+  max-width: 25vw;
+  min-width: 25vw;
 }
 
-.tips{
+.tips {
   width: 100vw;
-  height: 20vh;
+  height: 10vh;
   display: flex;
   justify-content: center;
   align-items: center;
   color: white;
+  font-size: .75rem;
+  letter-spacing: .125rem;
+}
+
+.point {
+  text-align: center;
+  color: rgb(255, 255, 255);
+}
+
+.month-and-day {
+  display: inline-flex;
+}
+
+.show-info{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.date-time{
+  font-size: .9375rem;
+  letter-spacing: .125rem;
+}
+
+@keyframes blink{
+  0%{
+    opacity: 0;
+  }
+
+  50%{
+    opacity: 1;
+  }
+
+  100%{
+    opacity: 0;
+  }
+}
+
+.blink{
+  animation: blink 1.5s infinite;
 }
