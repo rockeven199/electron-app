@@ -1,0 +1,81 @@
+@font-face {
+  font-family: "clockFont";
+  src: url('../font/DS-Digital.ttf');
+}
+
+* {
+  margin: 0;
+  font-family: "clockFont";
+}
+
+html {
+  -webkit-app-region: drag;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: transparent;
+}
+
+.show-clock {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.show-year-container {
+  display: flex;
+  text-align: center;
+  align-items: center;
+  justify-content: space-between;
+  width: 50vw;
+  height: 30vh;
+  color: rgb(255, 255, 255);
+}
+
+.year {
+  width: 50vw;
+  font-size: 3.125rem;
+}
+
+.mouth-and-day {
+  width: 50vw;
+  font-size: 1.5625rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.show-hours-container {
+  font-size: 5rem;
+  height: 40vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.hours,
+.minute,
+.seconds {
+  padding: 0 0.625rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30vw;
+}
+
+.tips{
+  width: 100vw;
+  height: 20vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
