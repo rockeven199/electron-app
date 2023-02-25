@@ -11,10 +11,6 @@ window.addEventListener("DOMContentLoaded", () => {
       seconds: date.getSeconds() <= 9 ? "0" + date.getSeconds() : +date.getSeconds()
     };
 
-    for (key in showElement) {
-      document.querySelector(`.${showElement[key]}`).innerHTML = getDateMethod[showElement[key]]
-    }
-
     var timeForHours = getDateMethod.hours;
     var timeForMinute = getDateMethod.minute;
     var tipsTextContent = "标语文本";
@@ -25,13 +21,22 @@ window.addEventListener("DOMContentLoaded", () => {
         : (timeForHours == 11) || (timeForHours == 11 && timeForMinute <= 10) ? tipsTextContent = "中午啦，干饭干饭！！ヾ(≧▽≦*)o"
           : (timeForHours == 12) || (timeForHours == 12 && timeForMinute <= 10) ? tipsTextContent = "时间过得好快呀，转眼就到下午了\(￣︶￣\)"
             : (timeForHours == 16) || (timeForHours == 16 && timeForMinute <= 10) ? tipsTextContent = "到饭点了，干饭干饭！ヾ(≧▽≦*)o"
-              : (timeForHours >= 19 && timeForHours <= 29) ? tipsTextContent = "play time！！！(≧∀≦)ゞ"
+              : (timeForHours >= 19 && timeForHours <= 21) ? tipsTextContent = "play time！！！(≧∀≦)ゞ"
                 : (timeForHours >= 22 && timeForHours <= 24) ? tipsTextContent = "夜深啦，该睡觉啦(～﹃～)~zZ"
                   : tipsTextContent = "Working Time (●'◡'●)";
 
-    document.querySelector(".tips").innerHTML = tipsTextContent;
-    timeForHours == 12 ? dateTimeElement.innerHTML = "AF" : timeForHours < 12 ? dateTimeElement.innerHTML = "AM" : dateTimeElement.innerHTML = "PM";
+    try {
+      document.querySelector(".tips").innerText = tipsTextContent;
+      for (key in showElement) {
+        document.querySelector(`.${showElement[key]}`).innerHTML = getDateMethod[showElement[key]]
+      }
+      timeForHours == 12 ? dateTimeElement.innerHTML = "AF" : timeForHours < 12 ? dateTimeElement.innerHTML = "AM" : dateTimeElement.innerHTML = "PM";
+    } catch (error) { }
   }, 1000, showElement);
 
-  const closeSettingWindow=document.querySelector("#close-setting-window");
+  const setMotto = document.querySelector("#setMotto");
+  const changeButton = document.querySelector("#updateMotto");
+  changeButton.addEventListener("click", () => {
+    window.api.get(setMotto.value)
+  });
 });
