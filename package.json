@@ -27,7 +27,7 @@
   },
   "build":{
     "win":{
-      "icon":"G:\\github-progect\\electron-app\\logo.ico"
+      "icon":"./logo.png"
     }
   }
 }

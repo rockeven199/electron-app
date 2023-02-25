@@ -24,7 +24,7 @@ window.addEventListener("DOMContentLoaded", () => {
       : (timeForHours == 7) || (timeForHours == 7 && timeForMinute <= 10) ? tipsTextContent = "该起床啦！太阳公公晒屁股啦！！(づ￣ 3￣)づ"
         : (timeForHours == 11) || (timeForHours == 11 && timeForMinute <= 10) ? tipsTextContent = "中午啦，干饭干饭！！ヾ(≧▽≦*)o"
           : (timeForHours == 12) || (timeForHours == 12 && timeForMinute <= 10) ? tipsTextContent = "时间过得好快呀，转眼就到下午了\(￣︶￣\)"
-            : (timeForHours == 13) || (timeForHours == 13 && timeForMinute <= 10) ? tipsTextContent = "到饭点了，干饭干饭！ヾ(≧▽≦*)o"
+            : (timeForHours == 16) || (timeForHours == 16 && timeForMinute <= 10) ? tipsTextContent = "到饭点了，干饭干饭！ヾ(≧▽≦*)o"
               : (timeForHours >= 22 && timeForHours <= 24) ? tipsTextContent = "夜深啦，该睡觉啦(～﹃～)~zZ"
                 : tipsTextContent = "Working Time (●'◡'●)";
 
