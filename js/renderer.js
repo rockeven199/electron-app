@@ -34,9 +34,9 @@ window.addEventListener("DOMContentLoaded", () => {
     } catch (error) { }
   }, 1000, showElement);
 
-  const setMotto = document.querySelector("#setMotto");
-  const changeButton = document.querySelector("#updateMotto");
-  changeButton.addEventListener("click", () => {
-    window.api.get(setMotto.value)
-  });
+  // const setMotto = document.querySelector("#setMotto");
+  // const changeButton = document.querySelector("#updateMotto");
+  // changeButton.addEventListener("click", () => {
+  //   window.api.get(setMotto.value)
+  // });
 });
