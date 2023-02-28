@@ -12,7 +12,7 @@ window.addEventListener('DOMContentLoaded', () => {
 contextBridge.exposeInMainWorld('api', {
   getConfigIni: (callback) => {
     ipcRenderer.on('sendConfig', (event, value) => {
-      if (value == '' || value == undefined) {
+      if (value === '' || value === undefined ||value === null) {
         ipcRenderer.on('sendConfig', (event, value) => {
           callback(value);
         })

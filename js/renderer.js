@@ -50,5 +50,5 @@ window.addEventListener("DOMContentLoaded", () => {
 
 window.api.getConfigIni((value) => {
   console.log(value)
-  document.querySelector(`#${value.bgColorMode}`).checked = true;
+  document.querySelector(`#${value.bgColorMode}`).checked = true
 })

@@ -58,14 +58,8 @@ const createSettingWindow = () => {
   Menu.setApplicationMenu(null);
   settingWindow.loadFile(path.resolve(__dirname, "./setting.html"));
   settingWindow.webContents.openDevTools();
-
-  const getSettingConfig = () => {
-    let resultContext = fs.readFileSync(path.resolve(__dirname, 'config.ini'), 'utf-8');
-    let config = JSON.parse(resultContext);
-    settingWindow.webContents.send('sendConfig', config);
-  }
-
-  getSettingConfig()
+  let resultContext = fs.readFileSync(path.resolve(__dirname, 'config.ini'), 'utf-8');
+  let config = JSON.parse(resultContext);
   return settingWindow;
 }
 
@@ -75,7 +69,9 @@ const trayMenu = (Tray, Menu) => {
     {
       label: "设置",
       click: () => {
-        createSettingWindow(Menu, path);
+        let resultContext = fs.readFileSync(path.resolve(__dirname, 'config.ini'), 'utf-8');
+        let config = JSON.parse(resultContext);
+        createSettingWindow(Menu, path).webContents.send('sendConfig', config)
       }
     },
     {
@@ -107,10 +103,9 @@ app.whenReady().then(() => {
 
 // 关闭设置页面
 ipcMain.on('closeSettingWindow', (settingWindow) => {
-  settingWindow.sender.destroy();
+  settingWindow.sender.close()
 });
 
-// 标语更新
-ipcMain.on('updateMotto', (event, value) => {
-  console.log(value)
-});
+ipcMain.on('reSend',()=>{
+  console.log("first")
+})
