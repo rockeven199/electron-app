@@ -33,7 +33,6 @@ window.addEventListener("DOMContentLoaded", () => {
     } else {
       tipsTextContent = "Working Time (●'◡'●)";
     }
-
     try {
       for (key in showElement) {
         document.querySelector(`.${showElement[key]}`).innerHTML = getDateMethod[showElement[key]]
@@ -44,14 +43,12 @@ window.addEventListener("DOMContentLoaded", () => {
 
     }
   }
-
   setInterval(() => {
     showClock();
   }, 1000);
-
 });
-
 
 window.api.getConfigIni((value) => {
   console.log(value)
+  document.querySelector(`#${value.bgColorMode}`).checked = true;
 })
