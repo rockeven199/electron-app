@@ -6,7 +6,6 @@ const fs = require('fs');
 const createMainWindow = () => {
   let result = fs.readFileSync(path.resolve(__dirname, 'config.ini'), 'utf-8');
   let config = JSON.parse(result);
-
   var bgConfig = "";
   if (config.usrDefindBgColor == "" || config.usrDefindBgColor == null) {
     if (config.bgColorMode === "dark") {
@@ -45,7 +44,7 @@ const createMainWindow = () => {
 const createSettingWindow = () => {
   const settingWindow = new BrowserWindow({
     width: 300,
-    height: 200,
+    height: 400,
     x: 1200,
     y: 300,
     frame: false,
@@ -106,6 +105,10 @@ ipcMain.on('closeSettingWindow', (settingWindow) => {
   settingWindow.sender.close()
 });
 
-ipcMain.on('reSend',()=>{
+ipcMain.on('reSend', () => {
   console.log("first")
+})
+
+ipcMain.on('defindBgColor',(event,value)=>{
+  console.log(value)
 })

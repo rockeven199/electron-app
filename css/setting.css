@@ -1,0 +1,14 @@
+* {
+  margin: 0;
+  font-family: "clockFont";
+}
+
+html {
+  /* -webkit-app-region: drag; */
+}
+
+body {
+  width: calc(100vw - .625rem);
+  height: 100vh;
+  /* background: rgba(225,225,225,0.2); */
+}

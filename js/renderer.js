@@ -39,16 +39,33 @@ window.addEventListener("DOMContentLoaded", () => {
       }
       document.querySelector(".tips").innerHTML = tipsTextContent;
       timeForHours == 12 ? dateTimeElement.innerHTML = "AF" : timeForHours < 12 ? dateTimeElement.innerHTML = "AM" : dateTimeElement.innerHTML = "PM";
-    } catch (error) {
-
-    }
+    } catch (error) { }
   }
   setInterval(() => {
     showClock();
   }, 1000);
+
+  // 选择颜色
+  document.querySelector("#userSelect").addEventListener('change', () => {
+    let color = document.querySelector("#userSelect").value;
+    window.api.defindBgColor(color);
+  });
+
+  document.querySelector("#usrdefined").addEventListener('blur', () => {
+    if (document.querySelector("#usrdefined").value.length == 0) {
+      document.querySelector("#userSelect").disabled = false;
+    } else {
+      document.querySelector("#userSelect").disabled = true;
+    }
+  });
 });
 
 window.api.getConfigIni((value) => {
-  console.log(value)
-  document.querySelector(`#${value.bgColorMode}`).checked = true
-})
+  if (value.usrDefindBgColor === null) {
+    document.querySelector(`#${value.bgColorMode}`).checked = true;
+  } else {
+    document.querySelector("#darkMode").disabled = true;
+    document.querySelector("#lightMode").disabled = true;
+    document.querySelector("#usrdefined").value = value.usrDefindBgColor;
+  }
+});

@@ -9,5 +9,5 @@
     "watch":[
         "*.*"
     ],
-    "ext":"html,js,css"
+    "ext":"html,js,css,ini"
 }
