@@ -9,20 +9,22 @@
 </head>
 
 <body>
-  <p id="show"></p>
   <input type="button" id="closeSettingWindow" value="关闭">
   <div class="changeArea">
     <div class="setBgColor">
-      <p id="bgColorTitle">设置背景颜色</p>
-      <label for="darkMode">深色</label>
-      <input type="radio" name="bgColor" id="darkMode" value="dark" />
-      <label for="lightMode">浅色</label>
-      <input type="radio" name="bgColor" id="lightMode" value="light" /><br>
-      <label for="usrdefined">自定义背景</label><br>
-      <label for="usrSelectorColor">选择背景颜色</label><br>
-      <input type="color" id="userSelect"><br>
-      <label for="usrdefined">输入背景颜色</label>
-      <input type="text" id="usrdefined">
+      <div class="setShowMode">
+        <p id="bgColorTitle">设置背景颜色</p>
+        <div style="width:80%;display: flex;justify-content: space-evenly;">
+          <div class="group">
+            <label for="darkMode">深色</label>
+            <input type="radio" name="bgColor" id="darkMode" value="dark" />
+          </div>
+          <div class="group">
+            <label for="lightMode">浅色</label>
+            <input type="radio" name="bgColor" id="lightMode" value="light" />
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </body>
@@ -32,5 +34,4 @@
 <style>
   @import url('./css/setting.css');
 </style>
-
 </html>

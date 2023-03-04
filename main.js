@@ -7,14 +7,11 @@ const createMainWindow = () => {
   let result = fs.readFileSync(path.resolve(__dirname, 'config.ini'), 'utf-8');
   let config = JSON.parse(result);
   var bgConfig = "";
-  if (config.usrDefindBgColor == "" || config.usrDefindBgColor == null) {
-    if (config.bgColorMode === "dark") {
-      bgConfig = "rgba(0,0,0,0.2)";
-    } else {
-      bgConfig = "rgba(225,225,225,0.2)";
-    }
+
+  if (config.bgColorMode === "dark") {
+    bgConfig = "rgba(0,0,0,0.2)";
   } else {
-    bgConfig = config.usrDefindBgColor;
+    bgConfig = "rgba(225,225,225,0.2)";
   }
 
   const mainWindow = new BrowserWindow({
@@ -36,7 +33,7 @@ const createMainWindow = () => {
   });
 
   mainWindow.loadFile(path.resolve(__dirname, "index.html"));
-  mainWindow.setAlwaysOnTop(false, "torn-off-menu");
+  // mainWindow.setAlwaysOnTop(false, "main-menu");
   // mainWindow.webContents.openDevTools();
 }
 
@@ -44,7 +41,7 @@ const createMainWindow = () => {
 const createSettingWindow = () => {
   const settingWindow = new BrowserWindow({
     width: 300,
-    height: 400,
+    height: 200,
     x: 1200,
     y: 300,
     frame: false,
@@ -56,9 +53,7 @@ const createSettingWindow = () => {
   });
   Menu.setApplicationMenu(null);
   settingWindow.loadFile(path.resolve(__dirname, "./setting.html"));
-  settingWindow.webContents.openDevTools();
-  let resultContext = fs.readFileSync(path.resolve(__dirname, 'config.ini'), 'utf-8');
-  let config = JSON.parse(resultContext);
+  // settingWindow.webContents.openDevTools();
   return settingWindow;
 }
 
@@ -70,7 +65,11 @@ const trayMenu = (Tray, Menu) => {
       click: () => {
         let resultContext = fs.readFileSync(path.resolve(__dirname, 'config.ini'), 'utf-8');
         let config = JSON.parse(resultContext);
-        createSettingWindow(Menu, path).webContents.send('sendConfig', config)
+        var isOpen = false;
+
+        if (isOpen === false) {
+          createSettingWindow(Menu, path).webContents.send('sendConfig', config)
+        } else { }
       }
     },
     {
@@ -100,15 +99,9 @@ app.whenReady().then(() => {
   trayMenu(Tray, Menu);
 });
 
+app.setAppUserModelId("桌面时钟")
+
 // 关闭设置页面
 ipcMain.on('closeSettingWindow', (settingWindow) => {
   settingWindow.sender.close()
 });
-
-ipcMain.on('reSend', () => {
-  console.log("first")
-})
-
-ipcMain.on('defindBgColor',(event,value)=>{
-  console.log(value)
-})

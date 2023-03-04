@@ -45,27 +45,25 @@ window.addEventListener("DOMContentLoaded", () => {
     showClock();
   }, 1000);
 
-  // 选择颜色
-  document.querySelector("#userSelect").addEventListener('change', () => {
-    let color = document.querySelector("#userSelect").value;
-    window.api.defindBgColor(color);
-  });
+  var hasUpdate = true;
+  if (hasUpdate === true) {
+    let option = {
+      title: "有新版本可供下载",
+      icon: "./logo.png",
+    };
 
-  document.querySelector("#usrdefined").addEventListener('blur', () => {
-    if (document.querySelector("#usrdefined").value.length == 0) {
-      document.querySelector("#userSelect").disabled = false;
-    } else {
-      document.querySelector("#userSelect").disabled = true;
+    // 创建通知并保存
+    let hhwNotication = new window.Notification(option.title, option);
+
+    // 当通知被点击时
+    hhwNotication.onclick = function () {
+      // TODO something...
     }
-  });
+  }
 });
 
 window.api.getConfigIni((value) => {
-  if (value.usrDefindBgColor === null) {
-    document.querySelector(`#${value.bgColorMode}`).checked = true;
-  } else {
-    document.querySelector("#darkMode").disabled = true;
-    document.querySelector("#lightMode").disabled = true;
-    document.querySelector("#usrdefined").value = value.usrDefindBgColor;
-  }
+  value.bgColorMode === "lightMode" ?
+    document.querySelector("#lightMode").checked = true :
+    document.querySelector("#darkMode").checked = true
 });

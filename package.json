@@ -1,6 +1,6 @@
 {
   "name": "disktop-clock",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "桌面时钟",
   "main": "main.js",
   "scripts": {
@@ -9,13 +9,15 @@
     "ndev": "nodemon --exec electron .",
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-builder",
+    "dist": "cross-env GH_TOKEN=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 electron-builder"
   },
   "author": "DEV",
   "license": "ISC",
   "dependencies": {
     "electron-squirrel-startup": "^1.0.0",
-    "nodemon": "^2.0.20"
+    "nodemon": "^2.0.20",
+    "update-electron-app": "^2.0.1"
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.5",
@@ -23,11 +25,29 @@
     "@electron-forge/maker-rpm": "^6.0.5",
     "@electron-forge/maker-squirrel": "^6.0.5",
     "@electron-forge/maker-zip": "^6.0.5",
+    "@electron-forge/publisher-github": "^6.0.5",
     "electron": "23.1.1"
   },
-  "build":{
-    "win":{
-      "icon":"./logo.png"
+  "build": {
+    "win": {
+      "icon": "./logo.png"
+    },
+    "appId": "com.disktopColor.com",
+    "directories": {
+      "output": "../dist"
+    },
+    "nsis": {
+      "oneClick": false,
+      "language": "2052",
+      "perMachine": true,
+      "allowToChangeInstallationDirectory": true
     }
-  }
+  },
+  "publish": [
+    {
+        "provider": "github",
+        "owner": "rockeven199",
+        "repo": "electron-app"
+    }
+]
 }

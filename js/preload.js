@@ -24,8 +24,5 @@ contextBridge.exposeInMainWorld('api', {
         callback(value);
       }
     })
-  },
-  defindBgColor: (data) => {
-    ipcRenderer.sendSync('defindBgColor',data)
   }
 });
