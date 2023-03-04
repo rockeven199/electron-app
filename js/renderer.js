@@ -45,21 +45,21 @@ window.addEventListener("DOMContentLoaded", () => {
     showClock();
   }, 1000);
 
-  var hasUpdate = true;
-  if (hasUpdate === true) {
-    let option = {
-      title: "有新版本可供下载",
-      icon: "./logo.png",
-    };
+  // var hasUpdate = true;
+  // if (hasUpdate === true) {
+  //   let option = {
+  //     title: "有新版本可供下载",
+  //     icon: "./logo.png",
+  //   };
 
-    // 创建通知并保存
-    let hhwNotication = new window.Notification(option.title, option);
+  //   // 创建通知并保存
+  //   let hhwNotication = new window.Notification(option.title, option);
 
-    // 当通知被点击时
-    hhwNotication.onclick = function () {
-      // TODO something...
-    }
-  }
+  //   // 当通知被点击时
+  //   hhwNotication.onclick = function () {
+  //     // TODO something...
+  //   }
+  // }
 });
 
 window.api.getConfigIni((value) => {

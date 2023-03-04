@@ -10,7 +10,7 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-builder",
-    "dist": "cross-env GH_TOKEN=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 electron-builder"
+    "dist": "electron-builder --publish"
   },
   "author": "DEV",
   "license": "ISC",
@@ -42,12 +42,5 @@
       "perMachine": true,
       "allowToChangeInstallationDirectory": true
     }
-  },
-  "publish": [
-    {
-        "provider": "github",
-        "owner": "rockeven199",
-        "repo": "electron-app"
-    }
-]
+  }
 }
