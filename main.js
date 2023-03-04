@@ -2,17 +2,18 @@ const { BrowserWindow, app, Tray, ipcMain, Menu } = require("electron");
 const path = require('path');
 const fs = require('fs');
 
+globalObj = new Object();
+
 // 主窗口
 const createMainWindow = () => {
   let result = fs.readFileSync(path.resolve(__dirname, 'config.ini'), 'utf-8');
   let config = JSON.parse(result);
   var bgConfig = "";
 
-  if (config.bgColorMode === "dark") {
-    bgConfig = "rgba(0,0,0,0.2)";
-  } else {
-    bgConfig = "rgba(225,225,225,0.2)";
-  }
+  config.bgColorMode === "dark" ?
+    bgConfig = "rgba(0,0,0,0.2)" :
+    bgConfig = "rgba(225,225,225,0.2)"
+
 
   const mainWindow = new BrowserWindow({
     minHeight: 200,
@@ -33,28 +34,18 @@ const createMainWindow = () => {
   });
 
   mainWindow.loadFile(path.resolve(__dirname, "index.html"));
-  // mainWindow.setAlwaysOnTop(false, "main-menu");
+
+  globalObj.mainWindow = mainWindow;
   // mainWindow.webContents.openDevTools();
+  return mainWindow;
 }
 
-// 设置窗口
-const createSettingWindow = () => {
-  const settingWindow = new BrowserWindow({
-    width: 300,
-    height: 200,
-    x: 1200,
-    y: 300,
-    frame: false,
-    transparent: false,
-    resizable: false,
-    webPreferences: {
-      preload: path.resolve(__dirname, "./js/preload.js")
-    }
-  });
-  Menu.setApplicationMenu(null);
-  settingWindow.loadFile(path.resolve(__dirname, "./setting.html"));
-  // settingWindow.webContents.openDevTools();
-  return settingWindow;
+// @param {string} 获取
+function setBgColor(Mode) {
+  let result = fs.readFileSync(path.resolve(__dirname, 'config.ini'), 'utf-8');
+  let config = JSON.parse(result);
+  config.bgColorMode = Mode;
+  fs.writeFileSync('./config.ini', JSON.stringify(config), 'utf-8');
 }
 
 // 托盘
@@ -62,31 +53,41 @@ const trayMenu = (Tray, Menu) => {
   const menuTemplate = [
     {
       label: "设置",
-      click: () => {
-        let resultContext = fs.readFileSync(path.resolve(__dirname, 'config.ini'), 'utf-8');
-        let config = JSON.parse(resultContext);
-        var isOpen = false;
-
-        if (isOpen === false) {
-          createSettingWindow(Menu, path).webContents.send('sendConfig', config)
-        } else { }
-      }
-    },
-    {
-      label: '退出',
-      click: () => {
-        app.exit()
-      }
+      submenu: [
+        {
+          label: "颜色模式",
+        submenu: [
+          {
+            label: '深色',
+            click: () => {
+              setBgColor("dark")
+            }
+          },
+          {
+            label: '浅色',
+            click: () => {
+              setBgColor("light")
+            },
+          }
+        ]
+        }
+  ]
+},
+  {
+    label: '退出',
+    click: () => {
+      app.exit()
+    }
     }
   ]
 
-  const tray = new Tray(path.resolve(__dirname, "logo.png"));
-  tray.setToolTip('桌面时钟');
-  const trayMenu = tray.setContextMenu(Menu.buildFromTemplate(menuTemplate))
+const tray = new Tray(path.resolve(__dirname, "logo.png"));
+tray.setToolTip('桌面时钟');
+const trayMenu = tray.setContextMenu(Menu.buildFromTemplate(menuTemplate))
 
-  tray.on('right-click', () => {
-    tray.popUpContextMenu(trayMenu);
-  });
+tray.on('right-click', () => {
+  tray.popUpContextMenu(trayMenu);
+});
 }
 
 // 加载
@@ -102,6 +103,6 @@ app.whenReady().then(() => {
 app.setAppUserModelId("桌面时钟")
 
 // 关闭设置页面
-ipcMain.on('closeSettingWindow', (settingWindow) => {
-  settingWindow.sender.close()
-});
+// ipcMain.on('closeSettingWindow', (settingWindow) => {
+//   settingWindow.sender.close()
+// });

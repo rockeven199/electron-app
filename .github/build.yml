@@ -1,0 +1,54 @@
+name: Build/release
+
+on: push
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+jobs:
+  release:
+    name: build and release electron app
+
+  runs-on: ${{ matrix.os }}
+    
+    # create a build matrix for jobs
+    strategy:
+      matrix:
+        os: [windows]
+    steps:
+      - name: Check out git repository
+        uses: actions/checkout@v2
+
+      - name: Install Node.js
+      uses: actions/setup-node@v2-beta
+
+      - name: npm install
+        run: |
+          npm install
+
+      - name: build windows app
+        if: matrix.os == 'windows'
+        run: |
+          npm run electron:build-win
+        env:
+          GH_TOKEN: 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
+
+      - name: cleanup artifacts
+        run: |
+          npx rimraf "dist_electron/!(*.exe|*.dmg)"
+
+      - name: upload artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.os }}
+          path: dist_electron
+    
+      - name: release
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: "dist_electron/**"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
