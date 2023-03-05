@@ -1,6 +1,6 @@
 name: Build Electron App For Win/Mac
 
-on: push:
+on: push
 
 # Workflow's jobs
 jobs:
