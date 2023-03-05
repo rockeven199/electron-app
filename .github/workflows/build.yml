@@ -65,13 +65,9 @@ jobs:
 
       # step7: create release
       - name: release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v1z
         if: startsWith(github.ref, 'refs/tags/')
         with:
           files: "../dist/**"
         env:
-<<<<<<< HEAD
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-=======
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
->>>>>>> 417e045c9eefbf3b256de2558c5713bf7e2d26a4
