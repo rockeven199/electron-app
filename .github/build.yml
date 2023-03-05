@@ -1,7 +1,5 @@
 name: Build/release
 
-on: push
-
 on:
   push:
     tags:
