@@ -36,7 +36,7 @@ const createMainWindow = () => {
   mainWindow.loadFile(path.resolve(__dirname, "index.html"));
 
   globalObj.mainWindow = mainWindow;
-  // mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
   return mainWindow;
 }
 
