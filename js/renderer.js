@@ -47,8 +47,8 @@ window.addEventListener("DOMContentLoaded", () => {
 });
 
 
-window.api.getConfigIni((value) => {
-  value.bgColorMode === "lightMode" ?
-    document.querySelector("#lightMode").checked = true :
-    document.querySelector("#darkMode").checked = true
-});
+// window.api.getConfigIni((value) => {
+//   value.bgColorMode === "lightMode" ?
+//     document.querySelector("#lightMode").checked = true :
+//     document.querySelector("#darkMode").checked = true
+// });
