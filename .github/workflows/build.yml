@@ -37,7 +37,7 @@ jobs:
       - name: build windows app
         if: matrix.os == 'windows'
         run: |
-          npm run electron-builder
+          electron-builder build
         env:
           GH_TOKEN: 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
 
