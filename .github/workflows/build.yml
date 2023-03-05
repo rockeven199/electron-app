@@ -1,6 +1,7 @@
 name: Build Electron App For Win/Mac
 
-# Workflow's trigger
+on: push
+
 on:
   push:
     tags:
