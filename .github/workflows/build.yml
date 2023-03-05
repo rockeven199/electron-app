@@ -1,9 +1,8 @@
 name: Build Electron App For Win/Mac
 
-on:
-  push:
-    tags:
-      - 'electron'
+on: push:
+      tags:
+        - 'electron'
 
 # Workflow's jobs
 jobs:
