@@ -1,6 +1,7 @@
-const { BrowserWindow, app, Tray, ipcMain, Menu } = require("electron");
+const { BrowserWindow, app, Tray, Menu, nativeTheme, ipcMain } = require("electron");
 const path = require('path');
 const fs = require('fs');
+const menuTemplate = require('./js/menu');
 
 globalObj = new Object();
 
@@ -8,16 +9,23 @@ globalObj = new Object();
 const createMainWindow = () => {
   let result = fs.readFileSync(path.resolve(__dirname, 'config.ini'), 'utf-8');
   let config = JSON.parse(result);
-  var bgConfig = "";
-
-  config.bgColorMode === "dark" ?
-    bgConfig = "rgba(0,0,0,0.2)" :
+  var bgConfig;
+  if (config.bgColorMode === "dark") {
+    bgConfig = "rgba(0,0,0,0.2)"
+  }
+  else if (config.bgColorMode === "light") {
     bgConfig = "rgba(225,225,225,0.2)"
-
+  }
+  else if (config.bgColorMode === "followSystem") {
+    setInterval(function () {
+      nativeTheme.shouldUseDarkColors ? globalObj.bgConfig = "rgba(0,0,0,0.2)" : globalObj.bgConfig = "rgba(225,225,225,0.2)"
+    }, 3000)
+  }
+  else{}
 
   const mainWindow = new BrowserWindow({
-    minHeight: 200,
-    minWidth: 300,
+    minHeight: 100,
+    minWidth: 200,
     width: config.windowWidth,
     height: config.windowHeight,
     x: 1200,
@@ -29,80 +37,35 @@ const createMainWindow = () => {
     backgroundColor: bgConfig,
     icon: path.resolve(__dirname, "logo.png"),
     webPreferences: {
-      preload: path.resolve(__dirname, "./js/preload.js")
+      preload: path.resolve(__dirname, "preload.js")
     }
   });
 
+  // mainWindow.webContents.openDevTools()
   mainWindow.loadFile(path.resolve(__dirname, "index.html"));
-
   globalObj.mainWindow = mainWindow;
-  // mainWindow.webContents.openDevTools();
   return mainWindow;
 }
 
-// @param {string} 获取
-function setBgColor(Mode) {
-  let result = fs.readFileSync(path.resolve(__dirname, 'config.ini'), 'utf-8');
-  let config = JSON.parse(result);
-  config.bgColorMode = Mode;
-  fs.writeFileSync('./config.ini', JSON.stringify(config), 'utf-8');
-}
+const createTray = () => {
+  const tray = new Tray(path.resolve(__dirname, "logo.png"));
+  tray.setToolTip('桌面时钟');
 
-// 托盘
-const trayMenu = (Tray, Menu) => {
-  const menuTemplate = [
-    {
-      label: "设置",
-      submenu: [
-        {
-          label: "颜色模式",
-        submenu: [
-          {
-            label: '深色',
-            click: () => {
-              setBgColor("dark")
-            }
-          },
-          {
-            label: '浅色',
-            click: () => {
-              setBgColor("light")
-            },
-          }
-        ]
-        }
-  ]
-},
-  {
-    label: '退出',
-    click: () => {
-      app.exit()
-    }
-    }
-  ]
-
-const tray = new Tray(path.resolve(__dirname, "logo.png"));
-tray.setToolTip('桌面时钟');
-const trayMenu = tray.setContextMenu(Menu.buildFromTemplate(menuTemplate))
-
-tray.on('right-click', () => {
-  tray.popUpContextMenu(trayMenu);
-});
+  const trayMenu = tray.setContextMenu(Menu.buildFromTemplate(menuTemplate))
+  tray.on('right-click', () => {
+    tray.popUpContextMenu(trayMenu);
+  });
 }
 
 // 加载
 app.whenReady().then(() => {
   const appStartLock = app.requestSingleInstanceLock();
-  if (!appStartLock) {
-    app.quit();
-  }
+  !appStartLock ? app.quit() : ''
+  createTray();
   createMainWindow();
-  trayMenu(Tray, Menu);
+  nativeTheme.on('updated', () => {
+    console.log('yes')
+  })
 });
 
-app.setAppUserModelId("桌面时钟")
-
-// 关闭设置页面
-// ipcMain.on('closeSettingWindow', (settingWindow) => {
-//   settingWindow.sender.close()
-// });
+app.setAppUserModelId("桌面时钟");
